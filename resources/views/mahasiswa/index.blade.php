@@ -2,47 +2,111 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h2>Data Mahasiswa</h2>
 
-    <a href="/mahasiswa/create"
-       class="btn btn-primary">
+<h2 class="fw-bold mb-0">
+    Data Mahasiswa
+</h2>
 
-        Tambah Mahasiswa
+<a href="/mahasiswa/create"
+   class="btn btn-primary">
 
-    </a>
+    <i class="bi bi-plus-circle"></i>
+    Tambah Mahasiswa
+
+</a>
+
 
 </div>
 
-<table class="table table-bordered">
+@if(session('success'))
 
-    <thead>
+<div class="alert alert-success">
 
-        <tr>
-            <th>NIM</th>
-            <th>Nama</th>
-            <th>Prodi</th>
-        </tr>
 
-    </thead>
+{{ session('success') }}
 
-    <tbody>
 
-        @foreach($mahasiswas as $m)
+</div>
 
-        <tr>
+@endif
 
-            <td>{{ $m->nim }}</td>
-            <td>{{ $m->nama }}</td>
-            <td>{{ $m->prodi }}</td>
+<div class="card border-0 shadow-sm">
 
-        </tr>
 
-        @endforeach
+<div class="card-body">
 
-    </tbody>
+    <table class="table table-hover align-middle">
 
-</table>
+        <thead>
+
+            <tr>
+
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>Prodi</th>
+                <th width="180">Aksi</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @forelse($mahasiswas as $mahasiswa)
+
+            <tr>
+
+                <td>{{ $mahasiswa->nim }}</td>
+
+                <td>{{ $mahasiswa->nama }}</td>
+
+                <td>{{ $mahasiswa->prodi }}</td>
+
+                <td>
+
+                    <a href="/mahasiswa/edit/{{ $mahasiswa->id }}"
+                       class="btn btn-warning btn-sm">
+
+                        Edit
+
+                    </a>
+
+                    <a href="/mahasiswa/delete/{{ $mahasiswa->id }}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Hapus data?')">
+
+                        Hapus
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            @empty
+
+            <tr>
+
+                <td colspan="4"
+                    class="text-center">
+
+                    Belum ada data mahasiswa
+
+                </td>
+
+            </tr>
+
+            @endforelse
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</div>
 
 @endsection

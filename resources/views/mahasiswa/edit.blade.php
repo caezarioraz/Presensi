@@ -3,7 +3,7 @@
 @section('content')
 
 <h2 class="fw-bold mb-4">
-    Tambah Mahasiswa
+    Edit Mahasiswa
 </h2>
 
 <div class="card border-0 shadow-sm">
@@ -11,7 +11,7 @@
 
 <div class="card-body">
 
-    <form action="/mahasiswa/store"
+    <form action="/mahasiswa/update/{{ $mahasiswa->id }}"
           method="POST">
 
         @csrf
@@ -25,6 +25,7 @@
             <input type="text"
                    name="nim"
                    class="form-control"
+                   value="{{ $mahasiswa->nim }}"
                    required>
 
         </div>
@@ -38,6 +39,7 @@
             <input type="text"
                    name="nama"
                    class="form-control"
+                   value="{{ $mahasiswa->nama }}"
                    required>
 
         </div>
@@ -51,6 +53,7 @@
             <input type="text"
                    name="prodi"
                    class="form-control"
+                   value="{{ $mahasiswa->prodi }}"
                    required>
 
         </div>
@@ -58,7 +61,7 @@
         <button type="submit"
                 class="btn btn-primary">
 
-            Simpan
+            Update
 
         </button>
 

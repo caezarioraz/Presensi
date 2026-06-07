@@ -1,36 +1,90 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2>Data Wajah</h2>
 
-    <a href="/face-master/create" class="btn btn-primary mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-        Registrasi Wajah
 
-    </a>
+<div>
 
-    <table class="table">
+    <h2 class="fw-bold mb-0">
+        Data Wajah
+    </h2>
 
-        <tr>
+    <p class="text-muted mb-0">
+        Daftar wajah mahasiswa yang sudah terdaftar
+    </p>
 
-            <th>ID</th>
-            <th>Foto</th>
+</div>
 
-        </tr>
+<a href="/face-master/create" class="btn btn-primary">
 
-        @foreach ($faces as $face)
+    <i class="bi bi-plus-circle"></i>
+    Registrasi Wajah
+
+</a>
+
+
+</div>
+
+<div class="card border-0 shadow-sm">
+
+
+<div class="card-body">
+
+    <table class="table table-hover align-middle">
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Mahasiswa</th>
+                <th>Foto</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @forelse($faces as $face)
+
             <tr>
 
                 <td>{{ $face->id }}</td>
 
                 <td>
+                    {{ $face->mahasiswa->nama ?? '-' }}
+                </td>
 
-                    <img src="{{ asset('storage/' . $face->foto) }}" width="120">
+                <td>
+
+                    <img src="{{ asset('storage/' . $face->foto) }}"
+                         width="80"
+                         class="rounded shadow-sm">
 
                 </td>
 
             </tr>
-        @endforeach
+
+            @empty
+
+            <tr>
+
+                <td colspan="3" class="text-center text-muted">
+                    Belum ada data wajah
+                </td>
+
+            </tr>
+
+            @endforelse
+
+        </tbody>
 
     </table>
+
+</div>
+
+
+</div>
+
 @endsection

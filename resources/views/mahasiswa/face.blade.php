@@ -1,74 +1,104 @@
 @extends('layouts.mahasiswa')
 
 @section('content')
-    <h3>Registrasi Wajah</h3>
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+<div class="mb-4">
 
-    @if ($face)
-        <div class="alert alert-info">
-            Wajah sudah terdaftar.
-            Ambil foto baru untuk memperbarui data wajah.
-        </div>
-    @endif
 
-    <video id="video" width="500" autoplay></video>
+<h3 class="fw-bold">
+    Registrasi Wajah
+</h3>
 
-    <br><br>
+<p class="text-muted">
+    Pastikan wajah terlihat jelas di kamera sebelum mengambil foto
+</p>
 
-    <button type="button" id="capture" class="btn btn-primary">
-        Ambil Foto
-    </button>
+</div>
 
-    <form id="formFace" action="/mahasiswa/face/store" method="POST">
-        @csrf
+@if (session('success'))
 
-        <input type="hidden" name="image" id="imageInput">
-    </form>
+<div class="alert alert-success border-0 shadow-sm">
+    {{ session('success') }}
+</div>
+@endif
 
-    <canvas id="canvas" style="display:none;"></canvas>
+@if ($face)
 
-    <script>
-        navigator.mediaDevices
-            .getUserMedia({
-                video: true
-            })
-            .then(function(stream) {
-                document.getElementById('video').srcObject = stream;
-            })
-            .catch(function(error) {
+<div class="alert alert-info border-0 shadow-sm">
+    <strong>Status:</strong> Wajah sudah terdaftar.
+    Anda bisa mengambil ulang jika ingin memperbarui data.
+</div>
+@endif
 
-                console.log(error);
+<div class="card border-0 shadow-sm">
 
-                alert(
-                    'Kamera tidak dapat diakses'
-                );
 
-            });
+<div class="card-body text-center">
 
-        document
-            .getElementById('capture')
-            .addEventListener('click', function() {
+    <video id="video"
+           autoplay
+           class="rounded border"
+           style="width: 100%; max-width: 600px;">
+    </video>
 
-                let video = document.getElementById('video');
-                let canvas = document.getElementById('canvas');
+    <div class="mt-3">
 
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
+        <button type="button"
+                id="capture"
+                class="btn btn-primary px-4">
 
-                canvas
-                    .getContext('2d')
-                    .drawImage(video, 0, 0);
+            <i class="bi bi-camera-fill"></i>
+            Ambil Foto
 
-                let image = canvas.toDataURL('image/png');
+        </button>
 
-                document.getElementById('imageInput').value = image;
+    </div>
 
-                document.getElementById('formFace').submit();
-            });
-    </script>
+</div>
+
+</div>
+
+<form id="formFace"
+      action="/mahasiswa/face/store"
+      method="POST">
+
+
+@csrf
+
+<input type="hidden" name="image" id="imageInput">
+
+
+</form>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            document.getElementById('video').srcObject = stream;
+        })
+        .catch(function(error) {
+            alert('Kamera tidak dapat diakses');
+            console.log(error);
+        });
+
+    document.getElementById('capture').addEventListener('click', function() {
+
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        canvas.getContext('2d').drawImage(video, 0, 0);
+
+        let image = canvas.toDataURL('image/png');
+
+        document.getElementById('imageInput').value = image;
+
+        document.getElementById('formFace').submit();
+
+    });
+</script>
+
 @endsection

@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class FaceMaster extends Model
 {
     protected $fillable = [
-
         'mahasiswa_id',
         'foto',
         'encoding',
         'tanggal_registrasi'
-
     ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(
+            Mahasiswa::class
+        );
+    }
 }

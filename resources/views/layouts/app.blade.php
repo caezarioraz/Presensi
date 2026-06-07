@@ -1,108 +1,129 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Presensi Wajah</title>
+    <meta charset="UTF-8">
+    <title>Admin - Presensi Wajah</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            overflow-x: hidden;
+            background: #f5f7fb;
         }
 
         .sidebar {
+            width: 260px;
             min-height: 100vh;
-            background: #212529;
+            position: fixed;
+            background: linear-gradient(180deg,#0f172a,#1e293b);
         }
 
-        .sidebar a {
+        .logo {
+            text-align: center;
             color: white;
-            text-decoration: none;
-            display: block;
-            padding: 12px 15px;
+            padding: 25px 0;
         }
 
-        .sidebar a:hover {
-            background: #343a40;
+        .menu-link {
+            display: block;
+            padding: 14px 20px;
+            margin: 6px 12px;
+            color: rgba(255,255,255,.8);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: .3s;
+        }
+
+        .menu-link:hover {
+            background: rgba(255,255,255,.1);
+            color: white;
+        }
+
+        .main {
+            margin-left: 260px;
+        }
+
+        .navbar-custom {
+            background: white;
+            padding: 18px 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,.05);
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.05);
         }
     </style>
-
 </head>
 
 <body>
 
-    <div class="container-fluid">
+<div class="sidebar">
 
-        <div class="row">
+    <div class="logo">
+        <i class="bi bi-person-workspace fs-1"></i>
+        <h5>Admin Panel</h5>
+    </div>
 
-            <!-- Sidebar -->
+    <a href="/dashboard" class="menu-link">
+        <i class="bi bi-grid-fill"></i> Dashboard
+    </a>
 
-            <div class="col-md-2 sidebar">
+    <a href="/mahasiswa" class="menu-link">
+        <i class="bi bi-people-fill"></i> Mahasiswa
+    </a>
 
-                <h4 class="text-white p-3">
-                    Presensi
-                </h4>
+    <a href="/admin" class="menu-link">
+        <i class="bi bi-person-fill-gear"></i> Admin
+    </a>
 
-                <a href="/dashboard">
-                    Dashboard
-                </a>
+    <a href="/face-master" class="menu-link">
+        <i class="bi bi-camera-fill"></i> Data Wajah
+    </a>
 
-                <a href="/mahasiswa">
-                    Mahasiswa
-                </a>
+    <a href="/presensi/data" class="menu-link">
+        <i class="bi bi-check-circle-fill"></i> Data Presensi
+    </a>
 
-                <a href="/face-master">
-                    Data Wajah
-                </a>
+    <a href="/logout" class="menu-link">
+        <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
 
-                <a href="/jadwal">
-                    Jadwal
-                </a>
+</div>
 
-                <a href="/presensi">
-                    Presensi
-                </a>
+<div class="main">
 
-                <a href="/laporan">
-                    Laporan
-                </a>
+    <div class="navbar-custom d-flex justify-content-between">
 
-                <a href="/logout">
-                    Logout
-                </a>
+        <h5 class="mb-0 fw-bold">
+            Dashboard Admin
+        </h5>
 
-            </div>
-
-            <!-- Content -->
-
-            <div class="col-md-10">
-
-                <nav class="navbar navbar-light bg-light">
-
-                    <div class="container-fluid">
-
-                        <span>
-                            Halo,
-                            {{ session('admin_username') }}
-                        </span>
-
-                    </div>
-
-                </nav>
-
-                <div class="p-4">
-
-                    @yield('content')
-
-                </div>
-
-            </div>
-
-        </div>
+        <span class="badge bg-primary p-2">
+            {{ session('admin_username') }}
+        </span>
 
     </div>
 
-</body>
+    <div class="content-card">
+        @yield('content')
+    </div>
 
+</div>
+
+</body>
 </html>
+

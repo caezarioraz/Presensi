@@ -2,58 +2,83 @@
 
 @section('content')
 
-<h2>Registrasi Wajah</h2>
+<div class="mb-4">
 
-<form
-    action="/face-master/store"
-    method="POST"
-    enctype="multipart/form-data">
 
-    @csrf
+<h2 class="fw-bold">
+    Registrasi Wajah
+</h2>
 
-    <div class="mb-3">
+<p class="text-muted">
+    Pilih mahasiswa dan upload foto wajah
+</p>
 
-        <label>Mahasiswa</label>
+</div>
 
-        <select
-            name="mahasiswa_id"
-            class="form-control">
+<div class="card border-0 shadow-sm">
 
-            @foreach($mahasiswas as $m)
 
-            <option
-                value="{{ $m->id }}">
+<div class="card-body">
 
-                {{ $m->nim }}
-                -
-                {{ $m->nama }}
+    <form action="/face-master/store"
+          method="POST"
+          enctype="multipart/form-data">
 
-            </option>
+        @csrf
 
-            @endforeach
+        <div class="mb-3">
 
-        </select>
+            <label class="form-label">
+                Mahasiswa
+            </label>
 
-    </div>
+            <select name="mahasiswa_id"
+                    class="form-select">
 
-    <div class="mb-3">
+                @foreach($mahasiswas as $m)
 
-        <label>Foto Wajah</label>
+                    <option value="{{ $m->id }}">
+                        {{ $m->nim }} - {{ $m->nama }}
+                    </option>
 
-        <input
-            type="file"
-            name="foto"
-            class="form-control">
+                @endforeach
 
-    </div>
+            </select>
 
-    <button
-        class="btn btn-success">
+        </div>
 
-        Simpan
+        <div class="mb-3">
 
-    </button>
+            <label class="form-label">
+                Foto Wajah
+            </label>
 
-</form>
+            <input type="file"
+                   name="foto"
+                   class="form-control"
+                   accept="image/*"
+                   required>
+
+        </div>
+
+        <button class="btn btn-success">
+
+            <i class="bi bi-save"></i>
+            Simpan
+
+        </button>
+
+        <a href="/face-master"
+           class="btn btn-secondary">
+
+            Kembali
+
+        </a>
+
+    </form>
+
+</div>
+
+</div>
 
 @endsection

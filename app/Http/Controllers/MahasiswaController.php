@@ -26,16 +26,57 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         Mahasiswa::create([
-
             'nim' => $request->nim,
             'nama' => $request->nama,
             'prodi' => $request->prodi,
-
-            'password' => Hash::make(
-                '123456'
-            )
-
+            'password' => Hash::make('123456')
         ]);
-        return redirect('/mahasiswa');
+
+        return redirect('/mahasiswa')
+            ->with(
+                'success',
+                'Mahasiswa berhasil ditambahkan'
+            );
+    }
+
+    public function edit($id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        return view(
+            'mahasiswa.edit',
+            compact('mahasiswa')
+        );
+    }
+
+    public function update(
+        Request $request,
+        $id
+    )
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        $mahasiswa->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'prodi' => $request->prodi
+        ]);
+
+        return redirect('/mahasiswa')
+            ->with(
+                'success',
+                'Data berhasil diperbarui'
+            );
+    }
+
+    public function destroy($id)
+    {
+        Mahasiswa::findOrFail($id)->delete();
+
+        return redirect('/mahasiswa')
+            ->with(
+                'success',
+                'Data berhasil dihapus'
+            );
     }
 }

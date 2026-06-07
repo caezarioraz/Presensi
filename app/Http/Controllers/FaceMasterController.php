@@ -73,26 +73,24 @@ class FaceMasterController extends Controller
         dd($response->json());
     }
 
-    public function uploadToPython()
-    {
-        FaceMaster::find($id);
+    public function uploadToPython($id)
+{
+    $face = FaceMaster::findOrFail($id);
 
-        $path = storage_path(
-            'app/public/' . $face->foto
-        );
+    $path = storage_path(
+        'app/public/' . $face->foto
+    );
 
-        $response = Http::attach(
-            'foto',
-            file_get_contents($path),
-            basename($path)
-        )->post(
-            'http://127.0.0.1:5000/upload'
-        );
+    $response = Http::attach(
+        'foto',
+        file_get_contents($path),
+        basename($path)
+    )->post(
+        'http://127.0.0.1:5000/upload'
+    );
 
-        dd(
-            $response->json()
-        );
-    }
+    return $response->json();
+}
 
     public function generateEncoding()
     {

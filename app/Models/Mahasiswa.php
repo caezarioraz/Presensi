@@ -12,4 +12,18 @@ class Mahasiswa extends Model
         'prodi',
         'password'
     ];
+
+    public function presensis()
+    {
+        return $this->hasMany(
+            Presensi::class
+        );
+    }
+
+    public function faceMaster()
+    {
+        return $this->hasOne(
+            FaceMaster::class
+        );
+    }
 }
